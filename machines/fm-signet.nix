@@ -25,17 +25,7 @@ let
           maintainers = with maintainers; [ wiredhikari ];
         };
       }) {};
-  # This was sitting in here ... did digital ocean IP change?
-  # ip = "159.203.120.58";
-
-  # this is "nixos-tutorial" in digital ocean
-  # ip = "157.245.223.206";
-
-  # this is "fm-signet" in digital ocean
-  # ip = "45.55.63.158";
-
-  # this is "nixos-2" in digital ocean
-  ip = "143.198.28.182";
+  ip = "64.225.59.252";
 in
 {
   deployment = {
@@ -45,21 +35,20 @@ in
 
   imports = [
     ./templates/digital-ocean.nix
+    <nixpkgs/nixos/modules/virtualisation/digital-ocean-image.nix>
     "${nix-bitcoin}/modules/modules.nix"
   ];
  
   networking = {
     hostName = "fm-signet";
     firewall.allowedTCPPorts = [ 80 443 5000 9735 ];
-    # interfaces.ens3 = {
-    #   # trying to comment this out so that we don't get stuck on "restarting the following units: ..."
-    #   # useDHCP = false;
-    #   ipv4.addresses = [{
-    #     address = ip;
-    #     prefixLength = 24;
-    #   }];
-    # };
-    # defaultGateway = "104.244.73.1";
+    interfaces.ens3 = {
+      useDHCP = true;
+      ipv4.addresses = [{
+        address = ip;
+        prefixLength = 24;
+      }];
+    };
     nameservers = [ "1.1.1.1" "8.8.8.8" ];
   };
 

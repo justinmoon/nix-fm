@@ -2,7 +2,8 @@
     # Like NixOps and morph, Colmena will attempt to connect to
     # the remote host using the attribute name by default. You
     # can override it like:
-    deployment.targetHost = "143.198.28.182";
+    # TODO: remove this IP because templates should support multiple hosts ...
+    deployment.targetHost = "64.225.59.252";
 
     # Override the default for this target host
     deployment.replaceUnknownProfiles = false;
@@ -16,9 +17,4 @@
 
     time.timeZone = "America/Los_Angeles";
 
-    boot.loader.grub.device = "/dev/vda";
-    fileSystems."/" = {
-      device = "/dev/vda1";
-      fsType = "ext4";
-    };
 }
